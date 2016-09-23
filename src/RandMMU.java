@@ -73,7 +73,7 @@ public class RandMMU implements MMU {
     
     public int selectVictim(int page_number) {
 		//chose a random page to remove
-		int chosenPage = rand.nextInt(frameWindowCapacity)+1;
+		int chosenPage = rand.nextInt(frameWindowCapacity);
 		lastVictim = pageQueue.remove(chosenPage);
     	
     	//insert the new page onto the frame queue
