@@ -29,7 +29,6 @@ public class RandMMU implements MMU {
     	}
     	Page readPage = pageQueue.get(index);
     	readPage.referenceBit = true;
-    	MovePageToBottom(index);
     }
     
     public void writeMemory(int page_number) {
@@ -43,7 +42,6 @@ public class RandMMU implements MMU {
     	Page writePage = pageQueue.get(index);
     	writePage.modifyBit = true;
     	writePage.referenceBit = true;
-    	MovePageToBottom(index);
     }
 
     public int checkInMemory(int page_number) {
