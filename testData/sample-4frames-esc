@@ -1,0 +1,105 @@
+Page fault     1055 
+reading        1055 
+Page fault    81758 
+reading       81758 
+Page fault    24184 
+reading       24184 
+Page fault     1141 
+reading        1141 
+Page fault   201544 
+Discard        1055 
+writting     201544 
+Page fault     1187 
+Discard       81758 
+reading        1187 
+Page fault    28687 
+Discard       24184 
+reading       28687 
+Page fault     1182 
+Discard        1141 
+reading        1182 
+Page fault     1218 
+Discard        1187 
+reading        1218 
+reading        1218 
+Page fault   208986 
+Disk write   201544 
+writting     208986 
+Page fault    24070 
+Discard       28687 
+writting      24070 
+Page fault     1102 
+Discard        1182 
+reading        1102 
+reading        1102 
+reading        1102 
+Page fault    28687 
+Discard        1218 
+reading       28687 
+Page fault   194198 
+Disk write   208986 
+writting     194198 
+reading        1102 
+reading        1102 
+reading        1102 
+Page fault   204206 
+Disk write    24070 
+writting     204206 
+Page fault     1044 
+Discard       28687 
+reading        1044 
+Page fault    24444 
+Discard        1102 
+writting      24444 
+Page fault     1212 
+Disk write   194198 
+reading        1212 
+Page fault   161612 
+Disk write   204206 
+writting     161612 
+Page fault     1129 
+Discard        1044 
+reading        1129 
+Page fault     1094 
+Discard        1212 
+reading        1094 
+Page fault   204690 
+Disk write   161612 
+writting     204690 
+Page fault     1174 
+Discard        1129 
+reading        1174 
+Page fault     1184 
+Discard        1094 
+reading        1184 
+Page fault     1181 
+Disk write   204690 
+reading        1181 
+Page fault     1267 
+Discard        1174 
+reading        1267 
+Page fault    28687 
+Discard        1184 
+reading       28687 
+Page fault   251689 
+Discard        1181 
+writting     251689 
+Page fault     1174 
+Discard        1267 
+reading        1174 
+reading        1174 
+Page fault   138710 
+Discard       28687 
+writting     138710 
+Page fault     1193 
+Disk write   251689 
+reading        1193 
+Page fault     1194 
+Discard        1174 
+reading        1194 
+reading        1194 
+total memory frames:  4
+events in trace:      40
+total disk reads:     32
+total disk writes:    8
+page fault rate:      0.80
