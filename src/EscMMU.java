@@ -77,13 +77,25 @@ public class EscMMU implements MMU {
     //inputs: page_number = the new page that needs to be inserted into the frame window.
     //return: the page number that was replaced to make room for the new page.
     public int selectVictim(int page_number) {
+    	//find victim to kill
     	int victimIndex = VictimHunter();
+    	
+    	//remove reference bits between current cursor to victim
+    	int tempPos = this.curserPos;
+    	while(tempPos != victimIndex){
+    		Page tempPage = this.pageQueue.get(tempPos);
+    		tempPage.referenceBit = false;
+    		tempPos = (tempPos + 1) % this.frameWindowCapacity;
+    	}
     	
     	lastVictim = pageQueue.remove(victimIndex);
     	
-    	//insert the new page onto the back of the frame queue
+    	//insert the new page onto previous victum spot
     	Page newPage = new Page(page_number);
-    	pageQueue.add(newPage);
+    	pageQueue.add(victimIndex, newPage);
+    	
+    	//update the curser position
+    	this.curserPos = (victimIndex + 1) % this.frameWindowCapacity;
     	
         return lastVictim.pageNo;
     }
@@ -93,20 +105,18 @@ public class EscMMU implements MMU {
     private int VictimHunter() {
     	//the victim page is the first page from the lowest group
     	int victimPos;
-    	victimPos = FindFirstVictim(0); //not recently used or modified
+    	victimPos = FindFirstVictim(false, false); //not recently used or modified
     	if(victimPos != -1) {
     		return victimPos;
     	}
-    	victimPos = FindFirstVictim(0); //not recently used or modified
+    	victimPos = FindFirstVictim(false, true); //not recently used or modified
     	if(victimPos != -1) {
     		return victimPos;
     	}
-    	//clear the reference frame on the second run
-    	victimPos = FindFirstVictim(1); //not recently used but modified
+    	victimPos = FindFirstVictim(true, false); //not recently used but modified
     	if(victimPos != -1) {
     		return victimPos;
     	}
-    	System.out.println("error: victim hunter failed.");
     	return curserPos;
     }
     
@@ -115,23 +125,20 @@ public class EscMMU implements MMU {
     //modifiedBit = if false look for a victim that has not be modified
     //note: if modified bit is high sets reference bit low for every page it passes.
     //starts search at cursor position
-    private int FindFirstVictim(int modifiedBit) {
-    	int startPos = this.curserPos;
+    private int FindFirstVictim(boolean referenceBit , boolean modifiedBit) {
+    	int curPos = this.curserPos;
     	//loop from current cursor position until back to starting cursor position
     	do {
-    		Page potentialVictim = pageQueue.get(this.curserPos);
+    		Page potentialVictim = pageQueue.get(curPos);
     		//the line below is very unreadable. I had to write it just for the lols.
-    		if( Boolean.compare(potentialVictim.modifyBit, false) <= modifiedBit && potentialVictim.referenceBit == false ) {
+    		if( potentialVictim.modifyBit == modifiedBit && potentialVictim.referenceBit == referenceBit ) {
     			//found the next victim;
-    			return this.curserPos;
+    			return curPos;
     		}
     		
-    		//clear the reference bit
-    		potentialVictim.referenceBit = false;
-    		
     		//move to the next page
-    		this.curserPos = (this.curserPos + 1) % this.frameWindowCapacity;
-    	}while(this.curserPos != startPos);
+    		curPos = (curPos + 1) % this.frameWindowCapacity;
+    	}while(curPos != this.curserPos);
     	//couldn't find a victim that meet the input criteria
     	return -1;
     }
